@@ -17,7 +17,8 @@ public class JwtService
         var claims = new List<System.Security.Claims.Claim>
         {
             new System.Security.Claims.Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new System.Security.Claims.Claim(ClaimTypes.Email, user.Email!)
+            new System.Security.Claims.Claim(ClaimTypes.Email, user.Email!),
+            new System.Security.Claims.Claim(ClaimTypes.Role, user.Role!)
         };
 
         var key = new SymmetricSecurityKey(

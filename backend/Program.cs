@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using backend.Data;
 using backend.Interfaces;
@@ -18,6 +19,7 @@ builder.Services.AddOpenApi();
 //dependency injection 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<IUserServiceInterface,UserService>();
 
 // register DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -65,7 +67,8 @@ builder.Services
                 IssuerSigningKey =
                     new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes(jwtKey!)
-                    )
+                    ),
+                RoleClaimType =ClaimTypes.Role
             };
     });
 
