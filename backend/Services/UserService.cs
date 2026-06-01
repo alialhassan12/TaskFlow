@@ -4,7 +4,7 @@ using backend.Interfaces;
 
 namespace backend.Services;
 
-class UserService : IUserServiceInterface
+class UserService : IUserService
 {
     private readonly AppDbContext _context;
     public UserService(AppDbContext context)

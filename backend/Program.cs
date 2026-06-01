@@ -16,10 +16,13 @@ builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();
 
+builder.Services.AddHttpContextAccessor();
+
 //dependency injection 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<JwtService>();
-builder.Services.AddScoped<IUserServiceInterface,UserService>();
+builder.Services.AddScoped<IUserService,UserService>();
+builder.Services.AddScoped<IProjectService,ProjectService>();
 
 // register DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>

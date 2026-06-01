@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace backend.Models;
 
 public class User
@@ -7,4 +9,8 @@ public class User
     public string Email{get;set;}=string.Empty;
     public string Password{get;set;}=string.Empty;
     public string Role{get;set;}="User";
+
+    // relationships
+    [JsonIgnore]
+    public List<Project> Projects{get;set;}=new List<Project>();
 }

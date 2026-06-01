@@ -1,7 +1,7 @@
 namespace backend.Interfaces;
 using backend.DTOs;
 
-public interface IUserServiceInterface
+public interface IUserService
 {
     Task<List<UserDto>> GetAllUsers();
 }
