@@ -23,6 +23,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IProjectService,ProjectService>();
+builder.Services.AddScoped<ITaskService,TaskService>();
 
 // register DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
