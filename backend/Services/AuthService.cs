@@ -93,6 +93,7 @@ public class AuthService : IAuthService
                     Id=user.Id,
                     Name=user.Name,
                     Email=user.Email,
+                    Role=user.Role
                 },
             success=true
         };

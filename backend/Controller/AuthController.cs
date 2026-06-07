@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace backend.Controller;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/")]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
@@ -15,7 +15,7 @@ public class AuthController : ControllerBase
         _authService=authService;
     }
 
-    [HttpPost("/register")]
+    [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterDto dto)
     {
         var result =await _authService.Register(dto);
@@ -32,7 +32,7 @@ public class AuthController : ControllerBase
         
     }
 
-    [HttpPost("/login")]
+    [HttpPost("login")]
     public async Task<IActionResult> Login(LoginDto dto)
     {
         var result= await _authService.Login(dto);
