@@ -2,6 +2,7 @@ using backend.Data;
 using backend.DTOs;
 using backend.Interfaces;
 using backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services;
 
@@ -52,7 +53,7 @@ public class ProjectService : IProjectService
                 Success=false
             };
         }
-        var projects=_context.Projects.Where(p=>p.UserId==userId).ToList();
+        var projects=await _context.Projects.Include(p=>p.Tasks).Where(p=>p.UserId==userId).ToListAsync();
         return new ResponseDto
         {
             Message="Projects fetched successfully",

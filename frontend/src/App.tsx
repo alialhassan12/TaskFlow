@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import Login from "./pages/Login"
 import { useAuthStore } from "./store/authStore"
 import Register from "./pages/Register";
+import Home from "./pages/UserPages/Home";
 
 const GuestRoute=({children}: {children: React.ReactNode})=>{
     const {authUser}=useAuthStore();
@@ -26,7 +27,7 @@ const ProtectedRoute=({children,allowedRoles}: {children: React.ReactNode; allow
 function App() {
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-gray-900 text-white">
       <Routes>
         <Route path="/" element={
           <GuestRoute>
@@ -47,7 +48,7 @@ function App() {
 
         <Route path="/user/dashboard" element={
           <ProtectedRoute allowedRoles={["User"]}>
-            <h1 className="text-2xl font-bold text-white">user Dashboard</h1>
+            <Home/>
           </ProtectedRoute>
         }></Route>
       </Routes>

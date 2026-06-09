@@ -11,4 +11,5 @@ public class Project
 
     // relationsips
     public User? User{get;set;}
+    public List<Models.Task> Tasks{get;set;}=new();
 }
