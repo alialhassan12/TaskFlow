@@ -62,6 +62,27 @@ public class ProjectService : IProjectService
         };
     }
 
+    public async Task<ResponseDto> GetProject(Guid userId,Guid projectId)
+    {
+        var project=await _context.Projects.Include(p=>p.Tasks)
+                                            .Where(p=>p.UserId==userId)
+                                            .FirstOrDefaultAsync(p=>p.Id ==projectId);
+        if(project == null)
+        {
+            return new ResponseDto
+            {
+                Success=false,
+                Message="Project Not Found"
+            };
+        }
+        return new ResponseDto
+        {
+            Success=true,
+            Message="Project Found",
+            Data=project,
+        };
+    }
+
     public async Task<ResponseDto> DeleteProject(Guid projectId,Guid userId)
     {
         var user=_context.Users.FirstOrDefault(u=>u.Id==userId);

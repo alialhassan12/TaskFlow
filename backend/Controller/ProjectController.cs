@@ -45,6 +45,22 @@ public class ProjectController : ControllerBase
         return Ok(result);
     }
 
+    [Authorize(Roles ="User")]
+    [HttpGet("{userId}/{projectId}")]
+    public async Task<IActionResult> GetProject(Guid userId,Guid projectId)
+    {
+        var result=await _projectService.GetProject(userId,projectId);
+        if (!result.Success)
+        {
+            return BadRequest(new
+            {
+                message=result.Message ?? "Project Not Found"
+            });
+        }
+
+        return Ok(result);
+    }
+
     [Authorize(Roles = "User")]
     [HttpDelete("delete/{projectId}/{userId}")]
     public async Task<IActionResult> DeleteProject(Guid projectId, Guid userId)

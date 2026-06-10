@@ -1,15 +1,19 @@
-import { ArrowRight, CheckCircle, Circle, EllipsisVertical, Plus, Search } from "lucide-react";
+import { ArrowRight, CheckCircle, Circle, Delete, EllipsisVertical, Plus, Search } from "lucide-react";
 import { Input } from "../../components/ui/input";
 import { useAuthStore } from "../../store/authStore";
 import { useProjectStore } from "../../store/projectStore";
 import { useEffect, useState } from "react";
 import CreateProjectDialog from "../../components/CreateProjectDialog";
+import { Button } from "../../components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../../components/ui/dropdown-menu";
+import { useNavigate } from "react-router-dom";
 
 const Home=()=>{
     const {authUser}=useAuthStore();
-    const {getUserProjects,projects}=useProjectStore();
+    const {getUserProjects,projects,deleteProject}=useProjectStore();
     const [searchInp,setSearchInp]=useState<string>("");
     const [openCreateDialog,setOpenCreateDialog]=useState<boolean>(false);
+    const navigate=useNavigate();
     
     useEffect(()=>{
         getUserProjects(authUser!.id);
@@ -57,9 +61,22 @@ const Home=()=>{
                             >
                                 <div className="flex justify-between items-center">
                                     <h1 className="font-bold text-2xl">{project.projectTitle}</h1>
-                                    <div className="hover:bg-gray-200/10 rounded-full p-2 cursor-pointer transition-all durationn-300">
-                                        <EllipsisVertical/>
-                                    </div>
+                                    <DropdownMenu >
+                                        <DropdownMenuTrigger asChild>
+                                            <Button 
+                                                variant={"ghost"} 
+                                                className="hover:bg-gray-200/10 hover:text-white rounded-full p-2 cursor-pointer transition-all durationn-300"
+                                            >
+                                                <EllipsisVertical/>
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent>
+                                            <DropdownMenuItem onClick={()=>deleteProject(project.userId,project.id)}>
+                                                <Delete/>
+                                                <p>Delete</p>
+                                            </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
                                 </div>
 
                                 <div className="flex flex-col gap-2 mt-5 border-b pb-5 border-border/20">
@@ -93,7 +110,10 @@ const Home=()=>{
                                 </div>
 
                                 <div className="flex justify-end">
-                                    <div className="p-2 rounded-full bg-purple-400 hover:cursor-pointer hover:bg-purple-400/90 transition-all duration-300 active:translate-y-1  ">
+                                    <div
+                                        onClick={()=>navigate(`/user/dashboard/project/${project.id}`)}
+                                        className="p-2 rounded-full bg-purple-400 hover:cursor-pointer hover:bg-purple-400/90 transition-all duration-300 active:translate-y-1"
+                                    >
                                         <ArrowRight className="w-4 h-4"/>
                                     </div>
                                 </div>

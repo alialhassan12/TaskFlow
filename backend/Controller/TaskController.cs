@@ -16,7 +16,7 @@ public class TaskController : ControllerBase
     }
 
     [Authorize(Roles="User")]
-    [HttpPost("/new")]
+    [HttpPost("new")]
     public async Task<IActionResult> CreateTask(CreateTaskDto dto)
     {
         var result=await _taskService.CreateTask(dto);
@@ -30,9 +30,9 @@ public class TaskController : ControllerBase
         return Ok(result);
     }
 
-    // [Authorize(Roles ="User")]
-    [HttpPost("/mark-completed")]
-    public async Task<IActionResult> MarkTaskAsCompleted(Guid taskId)
+    [Authorize(Roles ="User")]
+    [HttpPost("mark-completed")]
+    public async Task<IActionResult> MarkTaskAsCompleted([FromBody] Guid taskId)
     {
         var result=await _taskService.MarkTaskAsCompleted(taskId);
         if (!result.Success)
@@ -44,9 +44,9 @@ public class TaskController : ControllerBase
         }
         return Ok(result);
     }
-    // [Authorize(Roles ="User")]
-    [HttpPost("/mark-incompleted")]
-    public async Task<IActionResult> MarkTaskAsInComplete(Guid taskId)
+    [Authorize(Roles ="User")]
+    [HttpPost("mark-incompleted")]
+    public async Task<IActionResult> MarkTaskAsInComplete([FromBody]Guid taskId)
     {
         var result=await _taskService.MarkTaskAsInComplete(taskId);
         if (!result.Success)
@@ -59,8 +59,8 @@ public class TaskController : ControllerBase
         return Ok(result);
     }
 
-    // [Authorize(Roles="User")]
-    [HttpGet("/get")]
+    [Authorize(Roles="User")]
+    [HttpGet("get/{projectId}")]
     public async Task<IActionResult> GetTasks(Guid projectId)
     {
         var result=await _taskService.GetTasks(projectId);

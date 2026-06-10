@@ -3,6 +3,6 @@ export interface Task{
     projectId:string|number;
     title:string;
     description:string;
-    dueDate:Date;
+    dueDate:string;
     isCompleted:boolean;
 }

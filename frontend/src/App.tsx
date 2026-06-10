@@ -3,6 +3,8 @@ import Login from "./pages/Login"
 import { useAuthStore } from "./store/authStore"
 import Register from "./pages/Register";
 import Home from "./pages/UserPages/Home";
+import { Toaster } from "./components/ui/sonner";
+import ProjectDetails from "./pages/UserPages/ProjectDetails";
 
 const GuestRoute=({children}: {children: React.ReactNode})=>{
     const {authUser}=useAuthStore();
@@ -46,12 +48,22 @@ function App() {
           </ProtectedRoute>
         }></Route>
 
-        <Route path="/user/dashboard" element={
-          <ProtectedRoute allowedRoles={["User"]}>
-            <Home/>
-          </ProtectedRoute>
-        }></Route>
+        <Route path="/user/dashboard" >
+          <Route index element={
+            <ProtectedRoute allowedRoles={["User"]}>
+              <Home/>
+            </ProtectedRoute>
+            }
+          />
+          <Route path="project/:id" element={
+              <ProtectedRoute allowedRoles={["User"]}>
+                <ProjectDetails/>
+              </ProtectedRoute>
+            } 
+          />
+        </Route>
       </Routes>
+      <Toaster />
     </div>
   )
 }
